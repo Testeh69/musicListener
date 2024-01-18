@@ -1,0 +1,42 @@
+body{
+    height: 100vh;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#play-pause-button{
+    border: solid 3px;
+    height:70px;
+    width:70px;
+    border-radius: 40px;
+}
+
+
+img{
+    height:100%;
+    width:100%;
+}
+
+
+#background{
+    border-radius: 10px;
+    height:350px;
+    width:350px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+#main-interface{
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#interface-controler{
+    display: flex;
+    justify-content: center;
+}

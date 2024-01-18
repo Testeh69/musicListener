@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicListener</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        const audioElement = new Audio("../assets/music/ChillSunset.mp3")
+
+        const ScreenLofi = () =>{
+            return (
+                <img src="../assets/lofi_background.jpg" alt="background" id="background"/>
+            )
+        }
+
+        const PlayComponent = () => {
+            const [switchButton, setSwitchButton] = React.useState(0);
+            const ImageControler = ["../assets/pause-button-svgrepo-com.svg", "../assets/play-button-svgrepo-com.svg"]
+            const handleClick = () => {
+                if (switchButton === 0) {
+                    setSwitchButton(1);
+                    audioElement.pause()
+                } else {
+                    setSwitchButton(0);
+                    audioElement.play()
+                }
+            };
+
+            return (
+                <button onClick={handleClick} id="play-pause-button">
+                    <img src={ImageControler[switchButton]} alt="play-pause"/>
+                </button>
+            );
+        }
+        const MusicPlayerControlerInterface = () =>{
+            return (
+                <div id="interface-controler">
+                    < PlayComponent />
+                </div>
+            )
+        }
+        const LofiAppMainInterface = () =>{
+            return (
+                <div id="main-interface">
+                <ScreenLofi />
+                <MusicPlayerControlerInterface />
+                </div>
+            )
+        }
+
+        ReactDOM.render(<LofiAppMainInterface />, document.getElementById("app"));
+    </script>
+</body>
+</html>
