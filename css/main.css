@@ -1,16 +1,20 @@
 body{
     height: 100vh;
-    background-color: red;
+    background: linear-gradient(#e66465, #9198e5);    
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: hidden;
 }
 
-#play-pause-button{
+.controller{
+    position: sticky;
     border: solid 3px;
     height:70px;
     width:70px;
     border-radius: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 
@@ -24,19 +28,43 @@ img{
     border-radius: 10px;
     height:350px;
     width:350px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     border-radius: 10px;
 }
 
 #main-interface{
+    background : brown;
     display: flex;
     flex-direction: column;
     border: solid;
     padding: 20px;
     border-radius: 8px;
+    overflow-y: hidden;
+   
+    
 }
 
 #interface-controler{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
+
+#sound{
+    height: 40px;
+    width:40px;
+  
+}
+
+
+
+.volume-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  input[type="range"] {
+    width: 100px; /* Adjust the width as needed */
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  
