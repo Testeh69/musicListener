@@ -1,41 +1,60 @@
 const audioFile = ["../assets/music/ChillSunset.mp3", "../assets/music/hiphopLofi.mp3", "../assets/music/SkyLofi.mp3"];//Path to your musics
-const arratBackgroundLofi = ["../assets/background/fantasy.jpg", "../assets/background/japonais", "../assets/background/sci_fi.jpg", "../assets/background/winter.jpg"]
-
+const arrayBackgroundLofi = ["../assets/background/fantasy.jpg", "../assets/background/japonais.jpg", "../assets/background/sci_fi.jpg", "../assets/background/winter.jpg","../assets/background/lofi_background.jpg"]
+const lengthArrayBackgroundLofi = arrayBackgroundLofi.length
 const lengthAudioFile = audioFile.length;
+
 var pointerToArrayMusic = 0;
+var pointerToArrayBackground = 0;
 var audioElement = new Audio(audioFile[0]);
 
 
 //Lofi background
-const ScreenLofi = () =>{
+const SliderScreenLofi = () =>{
+    const [indexScreenLofi, setIndexScreenLofi] = React.useState(0)
     return (
         <div id="screen">
-        <ArrowRLeftButton />
-        <BackgroundLofi />
-        <ArrowRightButton />
+        <ArrowLeftButton indexScreenLofi= {indexScreenLofi} setIndexScreenLofi={setIndexScreenLofi}/>
+        <BackgroundLofi indexScreenLofi= {indexScreenLofi} setIndexScreenLofi={setIndexScreenLofi}/>
+        <ArrowRightButton indexScreenLofi= {indexScreenLofi} setIndexScreenLofi={setIndexScreenLofi}/>
         </div>
         )
 }
 
-const ArrowRightButton = () => {
+const ArrowRightButton = ({indexScreenLofi,setIndexScreenLofi}) => {
+    const handleClick = () => {
+        if (indexScreenLofi ===lengthArrayBackgroundLofi - 1){
+            setIndexScreenLofi(0);
+        }else{
+            setIndexScreenLofi(indexScreenLofi +1);
+        }
+    };
+    
     return (
-        <button className="controller-v2">
-        <img src="../assets/right-arrow.svg"></img>
+        <button onClick = {handleClick} className="controller-v2">
+            <img src="../assets/right-arrow.svg" alt="right-arrow"></img>
         </button>
     )
 }
 
-const ArrowRLeftButton = () => {
+const ArrowLeftButton = ({indexScreenLofi,setIndexScreenLofi}) => {
+    const handleClick = () => {
+        if (indexScreenLofi === 0){
+            setIndexScreenLofi(lengthArrayBackgroundLofi-1);
+        }
+        else{
+            setIndexScreenLofi(indexScreenLofi - 1)
+        }
+    }
     return (
-        <button className="controller-v2">
+        <button onClick = {handleClick} className="controller-v2">
         <img src="../assets/left-arrow.svg"></img>
         </button>
     )
 }
 
-const BackgroundLofi = () => {
+const BackgroundLofi = ({indexScreenLofi,setIndexScreenLofi}) => {
     return (
-        <img src="../assets/lofi_background.jpg" alt="background" id="background"/>
+        <img src={arrayBackgroundLofi[indexScreenLofi]} alt="background" id="background"/>
     )
 }
 
@@ -129,12 +148,17 @@ const PlayComponent = ({indexMusicList, setIndexMusicList}) => {
         </button>
     );
 }
+
+
+
+
+
 const MusicListComponent = () =>{
     const [indexMusicList, setIndexMusicList] = React.useState(pointerToArrayMusic);
 
     React.useEffect(() => {
         console.log("Updated indexMusicList:", indexMusicList);
-    }, [indexMusicList]); // To make usteState synchronous
+    }, [indexMusicList]); // To make useteState synchronous
 
     const handleClick = () => {
         setIndexMusicList((prevIndex) => (prevIndex === 0 ? lengthAudioFile - 1 : prevIndex - 1));
@@ -152,10 +176,13 @@ const MusicListComponent = () =>{
 
 
 
+//APP
+
+
 const LofiAppMainInterface = () =>{
     return (
         <div id="main-interface">
-        <ScreenLofi />
+        <SliderScreenLofi />
         <MusicListComponent />
         </div>
     )
