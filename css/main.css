@@ -61,8 +61,13 @@ img{
 .volume-bar {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+.volume-bar p{
+    margin-bottom: 5px;
+  }
   input[type="range"] {
     width: 100px; /* Adjust the width as needed */
     margin-right: 10px; /* Adjust the margin as needed */

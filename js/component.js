@@ -1,4 +1,6 @@
-const audioFile = ["../assets/music/ChillSunset.mp3", "../assets/music/hiphopLofi.mp3", "../assets/music/SkyLofi.mp3"];
+const audioFile = ["../assets/music/ChillSunset.mp3", "../assets/music/hiphopLofi.mp3", "../assets/music/SkyLofi.mp3"];//Path to your musics
+const lengthAudioFile = audioFile.length
+var pointerToArrayMusic = 0;
 var audioElement = new Audio(audioFile[0])
 
 const ScreenLofi = () =>{
@@ -18,6 +20,7 @@ const VolumeBar = () => {
 
     return (
         <div className="volume-bar">
+            <p>Son:</p>
             <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} />
         </div>
     );
@@ -44,32 +47,74 @@ const PlayComponent = () => {
         </button>
     );
 }
+const MusicListComponent = () =>{
+    const [indexMusicList, setIndexMusicList] = React.useState(pointerToArrayMusic);
 
-const RewindController = () => {
+    React.useEffect(() => {
+        console.log("Updated indexMusicList:", indexMusicList);
+    }, [indexMusicList]); // To make usteState synchronous
+
+    const handleClick = () => {
+        setIndexMusicList((prevIndex) => (prevIndex === 0 ? lengthAudioFile - 1 : prevIndex - 1));
+    };
+
+
     return (
-        <button class="controller">
-            <img src="../assets/rewind.svg" alt="rewind-button" />
-        </button>
+        <div>
+            <RewindController indexMusicList={indexMusicList} setIndexMusicList={setIndexMusicList} />
+            <SkipController indexMusicList = {indexMusicList} setIndexMusicList= {setIndexMusicList}/>
+        </div>
     )
 }
 
-const SkipController = () => {
+
+
+const RewindController = ({ indexMusicList, setIndexMusicList }) => {
+    const handleClick = () => {
+        if (indexMusicList === 0) {
+            setIndexMusicList(lengthAudioFile - 1);
+        } else {
+            setIndexMusicList(indexMusicList - 1);
+        }
+    };
+
     return (
-        <button class="controller">
+        <button onClick={handleClick} className="controller">
+            <img src="../assets/rewind.svg" alt="rewind-button" />
+        </button>
+    );
+};
+
+
+
+const SkipController = ({indexMusicList, setIndexMusicList}) => {
+    const handleClick = () => {
+        if (indexMusicList === lengthAudioFile - 1) {
+            setIndexMusicList(0);
+        } else {
+            setIndexMusicList(indexMusicList + 1);
+        }
+    };
+    return (
+        <button onClick = {handleClick}  className="controller">
             <img src="../assets/skip.svg" alt="rewind-button" />
         </button>
     )
 }
+
+
+
 const MusicPlayerControlerInterface = () =>{
     return (
         <div id="interface-controler">
-            <RewindController />
+            <MusicListComponent />
             <VolumeBar />
-            <PlayComponent />
-            <SkipController />
+            <PlayComponent />       
         </div>
     )
 }
+
+
 const LofiAppMainInterface = () =>{
     return (
         <div id="main-interface">
