@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Pacifico';
+    src: url(../assets/font/Pacifico-Regular.ttf) format('truetype');
+    /* Add additional formats if needed (e.g., woff, woff2) */
+}
+
+
+
 body{
     height: 100vh;
     background: linear-gradient(#e66465, #9198e5);    
@@ -5,6 +13,21 @@ body{
     justify-content: center;
     align-items: center;
     overflow-y: hidden;
+    font-family: 'Pacifico', cursive;
+}
+
+.screen-lofi{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+#screen{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
 }
 
 .controller{
@@ -17,6 +40,16 @@ body{
     margin-right: 5px;
 }
 
+
+.controller-v2{
+    position: sticky;
+    border: solid 3px;
+    height: 40px;
+    width:40px;
+    border-radius: 20px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
 
 img{
     height:100%;

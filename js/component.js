@@ -1,13 +1,47 @@
 const audioFile = ["../assets/music/ChillSunset.mp3", "../assets/music/hiphopLofi.mp3", "../assets/music/SkyLofi.mp3"];//Path to your musics
-const lengthAudioFile = audioFile.length
-var pointerToArrayMusic = 0;
-var audioElement = new Audio(audioFile[0])
+const arratBackgroundLofi = ["../assets/background/fantasy.jpg", "../assets/background/japonais", "../assets/background/sci_fi.jpg", "../assets/background/winter.jpg"]
 
+const lengthAudioFile = audioFile.length;
+var pointerToArrayMusic = 0;
+var audioElement = new Audio(audioFile[0]);
+
+
+//Lofi background
 const ScreenLofi = () =>{
+    return (
+        <div id="screen">
+        <ArrowRLeftButton />
+        <BackgroundLofi />
+        <ArrowRightButton />
+        </div>
+        )
+}
+
+const ArrowRightButton = () => {
+    return (
+        <button className="controller-v2">
+        <img src="../assets/right-arrow.svg"></img>
+        </button>
+    )
+}
+
+const ArrowRLeftButton = () => {
+    return (
+        <button className="controller-v2">
+        <img src="../assets/left-arrow.svg"></img>
+        </button>
+    )
+}
+
+const BackgroundLofi = () => {
     return (
         <img src="../assets/lofi_background.jpg" alt="background" id="background"/>
     )
 }
+
+
+
+//Music controller
 
 const VolumeBar = ({indexMusicList,setIndexMusicList}) => {
     const [volume, setVolume] = React.useState(50);
@@ -127,4 +161,14 @@ const LofiAppMainInterface = () =>{
     )
 }
 
-ReactDOM.render(<LofiAppMainInterface />, document.getElementById("app"));
+
+const ScreenLofiApp = () => {
+    return (
+        <div className= "screen-lofi">
+            <h1 className= "app-title">Lofi Vibe Radio</h1>
+            <LofiAppMainInterface />
+        </div>
+    )
+}
+
+ReactDOM.render(<ScreenLofiApp />, document.getElementById("app"));
