@@ -44,7 +44,7 @@ img{
     
 }
 
-#interface-controler{
+.interface-controler{
     display: flex;
     justify-content: center;
     align-items: center;

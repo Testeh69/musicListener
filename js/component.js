@@ -9,8 +9,10 @@ const ScreenLofi = () =>{
     )
 }
 
-const VolumeBar = () => {
+const VolumeBar = ({indexMusicList,setIndexMusicList}) => {
     const [volume, setVolume] = React.useState(50);
+
+  
 
     const handleVolumeChange = (event) => {
         const newVolume = event.target.value;
@@ -25,48 +27,6 @@ const VolumeBar = () => {
         </div>
     );
 };
-
-       
-
-const PlayComponent = () => {
-    const [switchButton, setSwitchButton] = React.useState(1);
-    const ImageControler = ["../assets/pause-button-svgrepo-com.svg", "../assets/play-button-svgrepo-com.svg"]
-    const handleClick = () => {
-        if (switchButton === 0) {
-            setSwitchButton(1);
-            audioElement.pause()
-        } else {
-            setSwitchButton(0);
-            audioElement.play()
-        }
-    };
-
-    return (
-        <button onClick={handleClick} class="controller">
-            <img src={ImageControler[switchButton]} alt="play-pause"/>
-        </button>
-    );
-}
-const MusicListComponent = () =>{
-    const [indexMusicList, setIndexMusicList] = React.useState(pointerToArrayMusic);
-
-    React.useEffect(() => {
-        console.log("Updated indexMusicList:", indexMusicList);
-    }, [indexMusicList]); // To make usteState synchronous
-
-    const handleClick = () => {
-        setIndexMusicList((prevIndex) => (prevIndex === 0 ? lengthAudioFile - 1 : prevIndex - 1));
-    };
-
-
-    return (
-        <div>
-            <RewindController indexMusicList={indexMusicList} setIndexMusicList={setIndexMusicList} />
-            <SkipController indexMusicList = {indexMusicList} setIndexMusicList= {setIndexMusicList}/>
-        </div>
-    )
-}
-
 
 
 const RewindController = ({ indexMusicList, setIndexMusicList }) => {
@@ -103,23 +63,61 @@ const SkipController = ({indexMusicList, setIndexMusicList}) => {
 }
 
 
+const PlayComponent = ({indexMusicList, setIndexMusicList}) => {
+    const [switchButton, setSwitchButton] = React.useState(1);
+    const ImageControler = ["../assets/pause-button-svgrepo-com.svg", "../assets/play-button-svgrepo-com.svg"]
 
-const MusicPlayerControlerInterface = () =>{
+    React.useEffect(() => {
+        audioElement.src = audioFile[indexMusicList];
+        if (switchButton === 0) {
+            audioElement.play();
+        }
+    }, [indexMusicList]);
+
+    const handleClick = () => {
+        if (switchButton === 0) {
+            setSwitchButton(1);
+            audioElement.pause()
+        } else {
+            setSwitchButton(0);
+            audioElement.play()
+        }
+    };
+
     return (
-        <div id="interface-controler">
-            <MusicListComponent />
-            <VolumeBar />
-            <PlayComponent />       
+        <button onClick={handleClick} className="controller">
+            <img src={ImageControler[switchButton]} alt="play-pause"/>
+        </button>
+    );
+}
+const MusicListComponent = () =>{
+    const [indexMusicList, setIndexMusicList] = React.useState(pointerToArrayMusic);
+
+    React.useEffect(() => {
+        console.log("Updated indexMusicList:", indexMusicList);
+    }, [indexMusicList]); // To make usteState synchronous
+
+    const handleClick = () => {
+        setIndexMusicList((prevIndex) => (prevIndex === 0 ? lengthAudioFile - 1 : prevIndex - 1));
+        
+    };
+    return (
+        <div className="interface-controler">
+            <RewindController indexMusicList={indexMusicList} setIndexMusicList={setIndexMusicList} />
+            <SkipController indexMusicList = {indexMusicList} setIndexMusicList= {setIndexMusicList} />
+            <VolumeBar indexMusicList = {indexMusicList} setIndexMusicList= {setIndexMusicList}/>
+            <PlayComponent indexMusicList = {indexMusicList} setIndexMusicList= {setIndexMusicList}/> 
         </div>
     )
 }
+
 
 
 const LofiAppMainInterface = () =>{
     return (
         <div id="main-interface">
         <ScreenLofi />
-        <MusicPlayerControlerInterface />
+        <MusicListComponent />
         </div>
     )
 }
