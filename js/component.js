@@ -20,6 +20,11 @@ const VolumeBar = ({indexMusicList,setIndexMusicList}) => {
         audioElement.volume = newVolume / 100; // Assurez-vous que le volume est compris entre 0 et 1
     };
 
+    React.useEffect(() => {
+       
+        audioElement.volume = volume/100;
+    }, [indexMusicList,volume]);
+
     return (
         <div className="volume-bar">
             <p>Son:</p>
